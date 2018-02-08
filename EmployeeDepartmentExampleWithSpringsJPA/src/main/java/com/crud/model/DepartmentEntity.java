@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -19,14 +20,16 @@ import javax.persistence.Table;
 
 
 @Entity
-@Table (name="department")
+@Table (name="DEPARTMENT")
 public class DepartmentEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue
+	@Column(name="EMP_DEPT_ID")
 	private Integer id;
+	@Column(name="DEPARTMENTNAME")
 	private String name;
 	
 	public DepartmentEntity(){
@@ -41,7 +44,7 @@ public class DepartmentEntity implements Serializable {
 	}
 	
 	//One Department can be mapped to many employees hence one to many relationship.
-	@OneToMany(mappedBy="department",cascade=CascadeType.PERSIST)
+	@OneToMany(mappedBy="DEPARTMENT",cascade=CascadeType.PERSIST)
     private List<EmployeeEntity> employees = new ArrayList<EmployeeEntity>();
 	
 	public List<EmployeeEntity> getEmployees() {

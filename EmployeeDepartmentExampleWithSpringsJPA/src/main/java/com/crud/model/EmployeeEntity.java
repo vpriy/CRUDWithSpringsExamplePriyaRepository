@@ -7,9 +7,11 @@ package com.crud.model;
  */
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -17,36 +19,38 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
-@Table (name="employee")
+@Table (name="EMPLOYEE")
 public class EmployeeEntity implements Serializable 
 {
 	private static final long serialVersionUID = 1L;
 
 	@Id
     @GeneratedValue
-	private Integer id;
-	
+    @Column(name="EMP_ID")
+	private Integer id;	
 	@NotEmpty
-	private String firstName;
-	private String lastName;
+	@Column(name="EMP_NAME")
+	private String empName;
+	@Column(name="EMP_ADDRESS")
 	private String email;
 	
 	//Many Departments can be mapped to one employee hence one to many relationship.
 	@NotNull
 	@ManyToOne
+	@JoinColumn(name = "EMP_DEPT_ID")
 	private DepartmentEntity department;
 	
 	public EmployeeEntity() {}
 	 
    //Constructor overloading or IOC
-	public EmployeeEntity(String name, DepartmentEntity department) {
-        this.firstName = name;
+	public EmployeeEntity(String empName, DepartmentEntity department) {
+        this.empName = empName;
         this.department = department;
     }
      
  
-    public EmployeeEntity(String name) {
-        this.firstName = name;
+    public EmployeeEntity(String empName) {
+        this.empName = empName;
     }
 
 	public Integer getId() {
@@ -56,23 +60,7 @@ public class EmployeeEntity implements Serializable
 	public void setId(Integer id) {
 		this.id = id;
 	}
-
-	public String getFirstName() {
-		return firstName;
-	}
-
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-
-	public String getLastName() {
-		return lastName;
-	}
-
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
-
+	
 	public String getEmail() {
 		return email;
 	}
@@ -91,8 +79,8 @@ public class EmployeeEntity implements Serializable
 
 	@Override
 	public String toString() {
-		return "EmployeeVO [id=" + id + ", firstName=" + firstName
-				+ ", lastName=" + lastName + ", email=" + email
+		return "EmployeeVO [id=" + id + ", empName=" + empName
+				+  ", email=" + email
 				+ ", department=" + department + "]";
 	}
 }

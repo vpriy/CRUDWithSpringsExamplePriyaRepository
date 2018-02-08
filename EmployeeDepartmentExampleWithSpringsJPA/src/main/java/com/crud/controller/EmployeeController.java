@@ -40,7 +40,7 @@ import com.crud.service.EmployeeService;
 @SessionAttributes("employee")
 public class EmployeeController
 {
-	//Dependency injection
+	//Dependency injection of springs
 	@Autowired
 	EmployeeService employeeService;
 
